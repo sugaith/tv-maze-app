@@ -1,3 +1,4 @@
+import useSWR from 'swr'
 import useSWRInfinite from 'swr/infinite'
 import {IUseShowAPIResponse} from './types'
 
@@ -20,10 +21,32 @@ export function useShowsAPI(): IUseShowAPIResponse {
     {initialSize: 1},
   )
 
+  console.log('useShowsAPI', data?.length)
+
   return {
-    showsPages: data,
+    showsPages: data || [],
     currentPages: size,
     setPages: setSize,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}
+
+export function useSearch(searchTern: string, shouldSearch: boolean) {
+  const {data, error} = useSWR(
+    shouldSearch ? `/search/shows?q=${searchTern || 'some'}` : null,
+    swrFetcher,
+    {
+      refreshInterval: 1500,
+      dedupingInterval: 1500,
+    },
+  )
+
+  const outLineShows = data?.map?.(({show}) => ({...show}))
+
+  console.log('useSearch', outLineShows?.length)
+  return {
+    searchResults: outLineShows || [],
     isLoading: !error && !data,
     isError: error,
   }

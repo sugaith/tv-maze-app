@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
   FlatList,
   Image,
@@ -6,7 +6,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import {useShowsAPI} from './services/ApiConsumer'
+import {useShowsAPI} from './services/api/ApiConsumer'
 import Header from './components/Header'
 
 const loadingIndicator = require('./assets/cupertino_activity_indicator.gif')
@@ -43,7 +43,7 @@ export default function App() {
         keyExtractor={show => show.id}
         numColumns={3}
         onEndReached={() => setPages(currentPages + 1)}
-        onEndReachedThreshold={0.2}
+        onEndReachedThreshold={0.45}
       />
     </SafeAreaView>
   )

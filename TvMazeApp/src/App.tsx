@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {
   FlatList,
   Image,
@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import './Store'
-import {useSearch, useShowsAPI} from './services/api/ApiConsumer'
+import {useSearchAPI, useShowsAPI} from './services/api/ApiConsumer'
 import Header from './components/Header'
 import {IStore, useStore} from './Store'
+import useDebounceValue from './Utils'
 
 const loadingIndicator = require('./assets/cupertino_activity_indicator.gif')
 
@@ -34,14 +35,18 @@ export default function App() {
   const searchTerm = useStore((state: IStore) => state.searchTerm)
 
   const {showsPages, setPages, currentPages, isError, isLoading} = useShowsAPI()
-  const {searchResults} = useSearch(searchTerm, isSearchActive)
+
+  const debouncedSearchTerm = useDebounceValue(searchTerm, 900)
+  const {searchResults} = useSearchAPI(debouncedSearchTerm, isSearchActive)
 
   const showsList = isSearchActive
     ? searchResults
     : showsPages.reduce((acc, curr) => acc.concat(curr), [])
 
   function handleEndReach() {
-    setPages(currentPages + 1)
+    if (!isSearchActive) {
+      setPages(currentPages + 1)
+    }
   }
 
   function renderItem({item}) {

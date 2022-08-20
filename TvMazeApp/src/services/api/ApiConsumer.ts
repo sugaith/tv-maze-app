@@ -1,10 +1,9 @@
 import useSWR from 'swr'
 import useSWRInfinite from 'swr/infinite'
-import {IUseShowAPIResponse} from './types'
+import {IUseSearchShowAPIResponse, IUseShowAPIResponse} from './types'
 
 const axios = require('axios').default
 axios.defaults.baseURL = 'https://api.tvmaze.com'
-
 const swrFetcher = url => axios.get(url).then(res => res.data)
 
 export function useShowsAPI(): IUseShowAPIResponse {
@@ -22,7 +21,6 @@ export function useShowsAPI(): IUseShowAPIResponse {
   )
 
   console.log('useShowsAPI', data?.length)
-
   return {
     showsPages: data || [],
     currentPages: size,
@@ -32,15 +30,15 @@ export function useShowsAPI(): IUseShowAPIResponse {
   }
 }
 
-export function useSearch(searchTern: string, shouldSearch: boolean) {
-  const {data, error} = useSWR(
-    shouldSearch ? `/search/shows?q=${searchTern || 'some'}` : null,
-    swrFetcher,
-    {
-      refreshInterval: 1500,
-      dedupingInterval: 1500,
-    },
-  )
+export function useSearchAPI(
+  searchTern: string,
+  shouldSearch: boolean,
+): IUseSearchShowAPIResponse {
+  const searchKey = shouldSearch
+    ? `/search/shows?q=${searchTern || 'some'}`
+    : null
+
+  const {data, error} = useSWR(searchKey, swrFetcher)
 
   const outLineShows = data?.map?.(({show}) => ({...show}))
 

@@ -19,3 +19,9 @@ export interface IUseShowAPIResponse {
   isLoading: boolean
   isError: boolean
 }
+
+export interface IUseSearchShowAPIResponse {
+  searchResults: IShow[][]
+  isLoading: boolean
+  isError: boolean
+}

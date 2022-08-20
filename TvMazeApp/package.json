@@ -2,7 +2,7 @@
   "name": "TvMazeApp",
   "version": "0.0.1",
   "private": true,
-  "nodeVersion" : "16.17.0",
+  "nodeVersion": "16.17.0",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",

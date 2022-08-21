@@ -8,13 +8,14 @@ import ShowDetailsScreen from './components/ShowDetailsScreen'
 import SearchScreen from './components/SearchScreen'
 import EpisodeDetailScreen from './components/EpisodeDetailScreen'
 
-const Stack = createStackNavigator()
 export const screens = {
   Home: 'Home',
   ShowDetails: 'ShowDetails',
   EpisodeDetails: 'EpisodeDetails',
   Search: 'Search',
 }
+
+const Stack = createStackNavigator()
 
 export default function App() {
   const setNavigationRef = useStore(state => state.setNavigationRef)

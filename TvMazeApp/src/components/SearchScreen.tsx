@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {FlatList, SafeAreaView, Text, View} from 'react-native'
 import {useStore} from '../Store'
 import {useDebounceValue} from '../Utils'
@@ -11,6 +11,7 @@ import {styles} from './styles/SearchScreenStyle'
 export default function SearchScreen() {
   const searchTerm = useStore(state => state.searchTerm)
   const setIsSearchActive = useStore(state => state.setIsSearchActive)
+  const [displayNoResults, setDisplayNoResults] = React.useState(false)
 
   const debouncedSearchTerm = useDebounceValue(searchTerm, 900)
   const {searchResults} = useSearchAPI(debouncedSearchTerm, true)
@@ -21,6 +22,15 @@ export default function SearchScreen() {
       return () => setIsSearchActive(false)
     }, [setIsSearchActive]),
   )
+
+  useEffect(() => {
+    if (searchResults.length) {
+      setDisplayNoResults(false)
+    } else {
+      setTimeout(() => setDisplayNoResults(true), 1500)
+    }
+    return () => clearTimeout()
+  }, [setDisplayNoResults, searchResults])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,7 +45,7 @@ export default function SearchScreen() {
             numColumns={3}
           />
         ) : (
-          <Text style={styles.h1}>No results found</Text>
+          displayNoResults && <Text style={styles.h1}>No results found</Text>
         )}
       </View>
     </SafeAreaView>

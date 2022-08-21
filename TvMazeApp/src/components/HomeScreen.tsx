@@ -6,33 +6,43 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import '../Store'
 import {useSearchAPI, useShowsAPI} from '../services/api/ApiConsumer'
-import Header from './Header'
-import {IStore, useStore} from '../Store'
 import useDebounceValue from '../Utils'
+import {useStore} from '../Store'
+import Header from './Header'
+import {screens} from '../App'
 
 const loadingIndicator = require('../assets/cupertino_activity_indicator.gif')
 
-const ShowTile = ({showInfo}) => (
-  <TouchableOpacity
-    style={{flex: 1, height: 210, margin: 3}}
-    onPress={() => {}}>
-    <>
-      <Image
-        style={{width: '100%', height: '100%', position: 'absolute'}}
-        source={{uri: showInfo?.image?.medium}}
-        resizeMethod={'scale'}
-        loadingIndicatorSource={loadingIndicator}
-      />
-      <Text style={{color: 'white'}}>{showInfo.name}</Text>
-    </>
-  </TouchableOpacity>
-)
+function ShowTile({showInfo}) {
+  const navigationRef = useStore(state => state.navigationRef)
+  const setShowOfInterest = useStore(state => state.setShowOfInterest)
+
+  function handlePress() {
+    setShowOfInterest(showInfo)
+    navigationRef.navigate(screens.ShowDetails)
+  }
+
+  return (
+    <TouchableOpacity
+      style={{flex: 1, height: 210, margin: 3}}
+      onPress={handlePress}>
+      <>
+        <Image
+          style={{width: '100%', height: '100%', position: 'absolute'}}
+          source={{uri: showInfo?.image?.medium}}
+          resizeMethod={'scale'}
+          loadingIndicatorSource={loadingIndicator}
+        />
+        <Text style={{color: 'white'}}>{showInfo.name}</Text>
+      </>
+    </TouchableOpacity>
+  )
+}
 
 export default function HomeScreen() {
-  const isSearchActive = useStore((state: IStore) => state.isSearchActive)
-  const searchTerm = useStore((state: IStore) => state.searchTerm)
+  const isSearchActive = useStore(state => state.isSearchActive)
+  const searchTerm = useStore(state => state.searchTerm)
 
   const {showsPages, setPages, currentPages, isError, isLoading} = useShowsAPI()
 

@@ -1,6 +1,11 @@
 import useSWR from 'swr'
 import useSWRInfinite from 'swr/infinite'
-import {IUseSearchShowAPIResponse, IUseShowAPIResponse} from './types'
+import {
+  IEpisode,
+  IUseSearchShowAPIResponse,
+  IUseShowAPIResponse,
+  IUseShowEpisodesAPIResponse,
+} from './types'
 
 const axios = require('axios').default
 axios.defaults.baseURL = 'https://api.tvmaze.com'
@@ -30,15 +35,33 @@ export function useShowsAPI(): IUseShowAPIResponse {
   }
 }
 
+export function useShowsDetailsAPI(
+  showId: number,
+): IUseShowEpisodesAPIResponse {
+  const swrKey = `/shows/${showId}/episodes?specials=1`
+  const {data: episodes, error} = useSWR(swrKey, swrFetcher)
+
+  const episodesBySeason = []
+  episodes?.forEach((episode: IEpisode) => {
+    episodesBySeason[episode.season] = episodesBySeason[episode.season]
+      ? [...episodesBySeason[episode.season], episode]
+      : [episode]
+  })
+
+  console.log('outLineDetails', episodesBySeason?.length)
+  return {
+    episodesBySeason: episodes ? episodesBySeason : [],
+    isLoading: !error && !episodes,
+    isError: error,
+  }
+}
+
 export function useSearchAPI(
   searchTern: string,
   shouldSearch: boolean,
 ): IUseSearchShowAPIResponse {
-  const searchKey = shouldSearch
-    ? `/search/shows?q=${searchTern || 'some'}`
-    : null
-
-  const {data, error} = useSWR(searchKey, swrFetcher)
+  const swrKey = shouldSearch ? `/search/shows?q=${searchTern || 'some'}` : null
+  const {data, error} = useSWR(swrKey, swrFetcher)
 
   const outLineShows = data?.map?.(({show}) => ({...show}))
 

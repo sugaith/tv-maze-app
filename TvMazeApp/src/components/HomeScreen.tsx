@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useRef, useState} from 'react'
 import {
   BackHandler,
   FlatList,
@@ -6,10 +6,10 @@ import {
   StyleSheet,
   ToastAndroid,
 } from 'react-native'
+import {useFocusEffect} from '@react-navigation/native'
 import {useShowsAPI} from '../services/api/ApiConsumer'
 import Header from './Header'
 import ShowTile from './ShowTile'
-import {useFocusEffect} from '@react-navigation/native'
 
 export default function HomeScreen() {
   const [canLeave, setCanLeave] = useState(false)
@@ -19,8 +19,7 @@ export default function HomeScreen() {
     if (!canLeave) {
       ToastAndroid.show('Tap again to leave', ToastAndroid.SHORT)
       setCanLeave(true)
-      blockerTimeRef.current = setTimeout(() => setCanLeave(false), 2000)
-
+      blockerTimeRef.current = setTimeout(() => setCanLeave(false), 2100)
       return true
     }
   }, [canLeave])

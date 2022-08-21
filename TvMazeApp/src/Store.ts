@@ -1,6 +1,6 @@
 import React from 'react'
 import create from 'zustand'
-import {IShow} from './services/api/types'
+import {IEpisode, IShow} from './services/api/types'
 
 export interface IStore {
   navigationRef: React.ReactElement | null
@@ -11,6 +11,8 @@ export interface IStore {
   setSearchTerm: Function
   showOfInterest: IShow | null
   setShowOfInterest: Function
+  episodeOfInterest: IEpisode | null
+  setEpisodeOfInterest: Function
 }
 
 function initStore(set): IStore {
@@ -25,6 +27,9 @@ function initStore(set): IStore {
 
     showOfInterest: null,
     setShowOfInterest: show => set(() => ({showOfInterest: show})),
+
+    episodeOfInterest: null,
+    setEpisodeOfInterest: episode => set(() => ({episodeOfInterest: episode})),
   }
 }
 

@@ -9,16 +9,29 @@ import {
 } from 'react-native'
 import {IEpisode} from '../services/api/types'
 import {resizeMode} from '../Utils'
+import {screens} from '../App'
+import {useStore} from '../Store'
 
 export default function EpisodesHorizontalList({season}: {season: IEpisode[]}) {
+  const navigationRef = useStore(state => state.navigationRef)
+  const setEpisodeOfInterest = useStore(state => state.setEpisodeOfInterest)
+
+  function handlePress(episode: IEpisode) {
+    setEpisodeOfInterest(episode)
+    navigationRef.navigate(screens.EpisodeDetails)
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView
         horizontal
+        persistentScrollbar
         style={styles.horizontalScroll}
         contentContainerStyle={styles.horizontalScroll}>
         {season.map((episode, i) => (
-          <TouchableOpacity key={`episode${episode.id}`}>
+          <TouchableOpacity
+            key={`episode${episode.id}`}
+            onPress={() => handlePress(episode)}>
             <ImageBackground
               style={styles.imageBackground}
               resizeMode={resizeMode.cover}
@@ -32,18 +45,17 @@ export default function EpisodesHorizontalList({season}: {season: IEpisode[]}) {
   )
 }
 
-const height = 90
+const height = 120
 const styles = StyleSheet.create({
   container: {
-    height: height,
+    height,
   },
   horizontalScroll: {
-    backgroundColor: 'gray',
-    height: height,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    height,
   },
   imageBackground: {
-    backgroundColor: 'red',
-    height: height,
+    height,
     width: 180,
     marginHorizontal: 3,
   },

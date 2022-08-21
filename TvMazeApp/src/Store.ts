@@ -7,9 +7,13 @@ export interface IStore {
   setSearchTerm: Function
 }
 
-export const useStore = create(set => ({
-  isSearchActive: false,
-  setIsSearchActive: isActive => set(() => ({isSearchActive: isActive})),
-  searchTerm: '',
-  setSearchTerm: searchTerm => set(() => ({searchTerm})),
-}))
+function initStore(set): IStore {
+  return {
+    isSearchActive: false,
+    setIsSearchActive: isActive => set(() => ({isSearchActive: isActive})),
+    searchTerm: '',
+    setSearchTerm: searchTerm => set(() => ({searchTerm})),
+  }
+}
+
+export const useStore = create(initStore)

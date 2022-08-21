@@ -1,44 +1,10 @@
 import React from 'react'
-import {
-  FlatList,
-  Image,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-} from 'react-native'
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native'
 import {useSearchAPI, useShowsAPI} from '../services/api/ApiConsumer'
-import useDebounceValue from '../Utils'
+import {useDebounceValue} from '../Utils'
 import {useStore} from '../Store'
 import Header from './Header'
-import {screens} from '../App'
-
-const loadingIndicator = require('../assets/cupertino_activity_indicator.gif')
-
-function ShowTile({showInfo}) {
-  const navigationRef = useStore(state => state.navigationRef)
-  const setShowOfInterest = useStore(state => state.setShowOfInterest)
-
-  function handlePress() {
-    setShowOfInterest(showInfo)
-    navigationRef.navigate(screens.ShowDetails)
-  }
-
-  return (
-    <TouchableOpacity
-      style={{flex: 1, height: 210, margin: 3}}
-      onPress={handlePress}>
-      <>
-        <Image
-          style={{width: '100%', height: '100%', position: 'absolute'}}
-          source={{uri: showInfo?.image?.medium}}
-          resizeMethod={'scale'}
-          loadingIndicatorSource={loadingIndicator}
-        />
-        <Text style={{color: 'white'}}>{showInfo.name}</Text>
-      </>
-    </TouchableOpacity>
-  )
-}
+import ShowTile from './ShowTile'
 
 export default function HomeScreen() {
   const isSearchActive = useStore(state => state.isSearchActive)
@@ -59,16 +25,12 @@ export default function HomeScreen() {
     }
   }
 
-  function renderItem({item}) {
-    return <ShowTile showInfo={item} />
-  }
-
   return (
-    <SafeAreaView style={{backgroundColor: 'black'}}>
+    <SafeAreaView style={styles.container}>
       <Header />
       <FlatList
         data={showsList}
-        renderItem={renderItem}
+        renderItem={({item}) => <ShowTile showInfo={item} />}
         keyExtractor={show => show.id}
         numColumns={3}
         onEndReached={handleEndReach}
@@ -77,3 +39,9 @@ export default function HomeScreen() {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+  },
+})

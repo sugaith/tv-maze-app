@@ -1,14 +1,12 @@
 import React, {useEffect, useRef} from 'react'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
-import './Store'
-
 import HomeScreen from './components/HomeScreen'
-import {useStore} from './Store'
 import ShowDetailsScreen from './components/ShowDetailsScreen'
+import './Store'
+import {useStore} from './Store'
 
 const Stack = createStackNavigator()
-
 export const screens = {
   Home: 'Home',
   ShowDetails: 'ShowDetails',

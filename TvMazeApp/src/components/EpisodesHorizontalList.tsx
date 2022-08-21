@@ -1,46 +1,52 @@
 import React from 'react'
-import {ImageBackground, ScrollView, StyleSheet, Text, View} from 'react-native'
-import {resizeMode} from './ShowDetailsScreen'
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import {resizeMode} from '../Utils'
 
 export default function EpisodesHorizontalList({season}) {
   return (
-    <View
-      style={{
-        height: 90,
-      }}>
+    <View style={styles.container}>
       <ScrollView
         horizontal
-        style={{
-          backgroundColor: 'gray',
-
-          height: 90,
-        }}
-        contentContainerStyle={{
-          backgroundColor: 'blue',
-
-          height: 90,
-        }}>
+        style={styles.horizontalScroll}
+        contentContainerStyle={styles.horizontalScroll}>
         {season.map((episode, i) => (
-          <ImageBackground
-            style={{
-              backgroundColor: 'red',
-              height: 90,
-              width: 180,
-              marginHorizontal: 3,
-            }}
-            resizeMode={resizeMode.cover}
-            source={{uri: episode?.image?.medium}}
-            key={`episode${episode.id}`}>
-            <Text style={styles.genres}> {`${i + 1}. ${episode.name}`} </Text>
-          </ImageBackground>
+          <TouchableOpacity key={`episode${episode.id}`}>
+            <ImageBackground
+              style={styles.imageBackground}
+              resizeMode={resizeMode.cover}
+              source={{uri: episode?.image?.medium}}>
+              <Text style={styles.text}> {`${i + 1}. ${episode.name}`} </Text>
+            </ImageBackground>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
   )
 }
 
+const height = 90
 const styles = StyleSheet.create({
-  genres: {
+  container: {
+    height: height,
+  },
+  horizontalScroll: {
+    backgroundColor: 'gray',
+    height: height,
+  },
+  imageBackground: {
+    backgroundColor: 'red',
+    height: height,
+    width: 180,
+    marginHorizontal: 3,
+  },
+  text: {
     backgroundColor: 'rgba(0, 0, 0, 0.36)',
     color: 'white',
     fontSize: 24,

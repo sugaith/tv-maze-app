@@ -38,7 +38,7 @@ export function useShowsAPI(): IUseShowAPIResponse {
 export function useShowsDetailsAPI(
   showId: number,
 ): IUseShowEpisodesAPIResponse {
-  const swrKey = `/shows/${showId}/episodes?specials=1`
+  const swrKey = showId ? `/shows/${showId}/episodes?specials=1` : null
   const {data: episodes, error} = useSWR(swrKey, swrFetcher)
 
   const episodesBySeason = []

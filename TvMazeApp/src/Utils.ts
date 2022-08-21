@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 
-export default function useDebounceValue(value, delay) {
+export function useDebounceValue(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value)
 
   useEffect(() => {
@@ -14,4 +14,12 @@ export default function useDebounceValue(value, delay) {
   }, [value, delay])
 
   return debouncedValue
+}
+
+export const resizeMode = {
+  cover: 'cover',
+  contain: 'contain',
+  stretch: 'stretch',
+  center: 'center',
+  repeat: 'repeat',
 }

@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import {IEpisode} from '../services/api/types'
 import {resizeMode} from '../Utils'
 
-export default function EpisodesHorizontalList({season}) {
+export default function EpisodesHorizontalList({season}: {season: IEpisode[]}) {
   return (
     <View style={styles.container}>
       <ScrollView

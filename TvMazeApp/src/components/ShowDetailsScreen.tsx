@@ -19,7 +19,6 @@ export default function ShowDetailsScreen() {
   const showInfo = useStore(state => state.showOfInterest)
   const {episodesBySeason} = useShowsDetailsAPI(showInfo.id)
   const {width} = useWindowDimensions()
-
   const htmlSummary = `
     <div style="${htmlStyle}">
       ${showInfo.summary}

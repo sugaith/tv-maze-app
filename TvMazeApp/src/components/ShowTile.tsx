@@ -1,11 +1,12 @@
 import React from 'react'
 import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native'
+import {IShow} from '../services/api/types'
 import {useStore} from '../Store'
 import {screens} from '../App'
 
 const loadingIndicator = require('../assets/cupertino_activity_indicator.gif')
 
-export default function ShowTile({showInfo}) {
+export default function ShowTile({showInfo}: {showInfo: IShow}) {
   const navigationRef = useStore(state => state.navigationRef)
   const setShowOfInterest = useStore(state => state.setShowOfInterest)
 

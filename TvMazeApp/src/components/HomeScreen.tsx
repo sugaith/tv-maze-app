@@ -9,8 +9,7 @@ import ShowTile from './ShowTile'
 export default function HomeScreen() {
   const isSearchActive = useStore(state => state.isSearchActive)
   const searchTerm = useStore(state => state.searchTerm)
-
-  const {showsPages, setPages, currentPages, isError, isLoading} = useShowsAPI()
+  const {showsPages, setPages, currentPages} = useShowsAPI()
 
   const debouncedSearchTerm = useDebounceValue(searchTerm, 900)
   const {searchResults} = useSearchAPI(debouncedSearchTerm, isSearchActive)

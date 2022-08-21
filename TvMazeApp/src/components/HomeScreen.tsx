@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {
   BackHandler,
   FlatList,
@@ -9,11 +9,11 @@ import {
 import {useShowsAPI} from '../services/api/ApiConsumer'
 import Header from './Header'
 import ShowTile from './ShowTile'
+import {useFocusEffect} from '@react-navigation/native'
 
 export default function HomeScreen() {
+  const [canLeave, setCanLeave] = useState(false)
   const blockerTimeRef = useRef()
-  const [canLeave, setCanLeave] = React.useState(false)
-  const {showsPages, setPages, currentPages} = useShowsAPI()
 
   const backBlocker = useCallback(() => {
     if (!canLeave) {
@@ -25,16 +25,17 @@ export default function HomeScreen() {
     }
   }, [canLeave])
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', backBlocker)
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', backBlocker)
-  }, [backBlocker])
+  useFocusEffect(
+    React.useCallback(() => {
+      BackHandler.addEventListener('hardwareBackPress', backBlocker)
+      return () => {
+        clearTimeout(blockerTimeRef.current)
+        BackHandler.removeEventListener('hardwareBackPress', backBlocker)
+      }
+    }, [backBlocker]),
+  )
 
-  useEffect(() => {
-    return () => blockerTimeRef.current?.clearTimeout?.()
-  }, [])
-
+  const {showsPages, setPages, currentPages} = useShowsAPI()
   const showsList = showsPages.reduce((acc, curr) => acc.concat(curr), [])
   return (
     <SafeAreaView style={styles.container}>

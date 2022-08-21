@@ -24,19 +24,19 @@ export default function SearchScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      {searchResults.length ? (
-        <FlatList
-          style={styles.container}
-          data={searchResults}
-          renderItem={({item}) => <ShowTile showInfo={item} />}
-          keyExtractor={show => show.id}
-          numColumns={3}
-        />
-      ) : (
-        <View style={styles.noResultsView}>
+      <View style={styles.resultsView}>
+        {searchResults.length ? (
+          <FlatList
+            style={styles.container}
+            data={searchResults}
+            renderItem={({item}) => <ShowTile showInfo={item} />}
+            keyExtractor={show => show.id}
+            numColumns={3}
+          />
+        ) : (
           <Text style={styles.h1}>No results found</Text>
-        </View>
-      )}
+        )}
+      </View>
     </SafeAreaView>
   )
 }
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     padding: 9,
   },
-  noResultsView: {
+  resultsView: {
     backgroundColor: 'black',
     width: '100%',
     height: '100%',

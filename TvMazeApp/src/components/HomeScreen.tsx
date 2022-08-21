@@ -13,26 +13,26 @@ import ShowTile from './ShowTile'
 import {styles} from './styles/HomeScreenStyle'
 
 export default function HomeScreen() {
-  const [canLeave, setCanLeave] = useState(false)
+  const [canExit, setCanExit] = useState(false)
   const blockerTimeRef = useRef()
 
-  const backBlocker = useCallback(() => {
-    if (!canLeave) {
-      ToastAndroid.show('Tap again to leave', ToastAndroid.SHORT)
-      setCanLeave(true)
-      blockerTimeRef.current = setTimeout(() => setCanLeave(false), 2100)
+  const exitBlocker = useCallback(() => {
+    if (!canExit) {
+      ToastAndroid.show('Tap again to exit', ToastAndroid.SHORT)
+      setCanExit(true)
+      blockerTimeRef.current = setTimeout(() => setCanExit(false), 2100)
       return true
     }
-  }, [canLeave])
+  }, [canExit])
 
   useFocusEffect(
     React.useCallback(() => {
-      BackHandler.addEventListener('hardwareBackPress', backBlocker)
+      BackHandler.addEventListener('hardwareBackPress', exitBlocker)
       return () => {
         clearTimeout(blockerTimeRef.current)
-        BackHandler.removeEventListener('hardwareBackPress', backBlocker)
+        BackHandler.removeEventListener('hardwareBackPress', exitBlocker)
       }
-    }, [backBlocker]),
+    }, [exitBlocker]),
   )
 
   const {showsPages, setPages, currentPages} = useShowsAPI()

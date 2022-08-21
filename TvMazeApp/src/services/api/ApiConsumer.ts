@@ -25,7 +25,6 @@ export function useShowsAPI(): IUseShowAPIResponse {
     {initialSize: 1},
   )
 
-  console.log('useShowsAPI', data?.length)
   return {
     showsPages: data || [],
     currentPages: size,
@@ -48,7 +47,6 @@ export function useShowsDetailsAPI(
       : [episode]
   })
 
-  console.log('outLineDetails', episodesBySeason?.length)
   return {
     episodesBySeason: episodes ? episodesBySeason : [],
     isLoading: !error && !episodes,
@@ -60,12 +58,12 @@ export function useSearchAPI(
   searchTern: string,
   shouldSearch: boolean,
 ): IUseSearchShowAPIResponse {
-  const swrKey = shouldSearch ? `/search/shows?q=${searchTern || 'some'}` : null
+  const swrKey = shouldSearch
+    ? `/search/shows?q=${searchTern || 'universe'}`
+    : null
   const {data, error} = useSWR(swrKey, swrFetcher)
 
   const outLineShows = data?.map?.(({show}) => ({...show}))
-
-  console.log('useSearch', outLineShows?.length)
   return {
     searchResults: outLineShows || [],
     isLoading: !error && !data,

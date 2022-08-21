@@ -1,29 +1,41 @@
-import React from 'react'
-import {FlatList, SafeAreaView, StyleSheet} from 'react-native'
-import {useSearchAPI, useShowsAPI} from '../services/api/ApiConsumer'
-import {useDebounceValue} from '../Utils'
-import {useStore} from '../Store'
+import React, {useCallback, useEffect, useRef} from 'react'
+import {
+  BackHandler,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  ToastAndroid,
+} from 'react-native'
+import {useShowsAPI} from '../services/api/ApiConsumer'
 import Header from './Header'
 import ShowTile from './ShowTile'
 
 export default function HomeScreen() {
-  const isSearchActive = useStore(state => state.isSearchActive)
-  const searchTerm = useStore(state => state.searchTerm)
+  const blockerTimeRef = useRef()
+  const [canLeave, setCanLeave] = React.useState(false)
   const {showsPages, setPages, currentPages} = useShowsAPI()
 
-  const debouncedSearchTerm = useDebounceValue(searchTerm, 900)
-  const {searchResults} = useSearchAPI(debouncedSearchTerm, isSearchActive)
+  const backBlocker = useCallback(() => {
+    if (!canLeave) {
+      ToastAndroid.show('Tap again to leave', ToastAndroid.SHORT)
+      setCanLeave(true)
+      blockerTimeRef.current = setTimeout(() => setCanLeave(false), 2000)
 
-  const showsList = isSearchActive
-    ? searchResults
-    : showsPages.reduce((acc, curr) => acc.concat(curr), [])
-
-  function handleEndReach() {
-    if (!isSearchActive) {
-      setPages(currentPages + 1)
+      return true
     }
-  }
+  }, [canLeave])
 
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', backBlocker)
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', backBlocker)
+  }, [backBlocker])
+
+  useEffect(() => {
+    return () => blockerTimeRef.current?.clearTimeout?.()
+  }, [])
+
+  const showsList = showsPages.reduce((acc, curr) => acc.concat(curr), [])
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -32,8 +44,8 @@ export default function HomeScreen() {
         renderItem={({item}) => <ShowTile showInfo={item} />}
         keyExtractor={show => show.id}
         numColumns={3}
-        onEndReached={handleEndReach}
-        onEndReachedThreshold={0.45}
+        onEndReached={() => setPages(currentPages + 1)}
+        onEndReachedThreshold={0.9}
       />
     </SafeAreaView>
   )

@@ -33,7 +33,10 @@ export default function EpisodeDetailScreen() {
             style={
               styles.h2
             }>{`Episode ${episode.number} - ${episode.name}`}</Text>
-          <RenderHtml contentWidth={width} source={{html: htmlSummary}} />
+          <RenderHtml
+            contentWidth={width}
+            source={{html: episode.summary ? htmlSummary : ''}}
+          />
         </ScrollView>
       </ImageBackground>
     </SafeAreaView>

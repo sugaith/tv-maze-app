@@ -1,19 +1,29 @@
 import React from 'react'
-import {IStore, useStore} from '../Store'
+import {useStore} from '../Store'
 import {StyleSheet, TextInput, View} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import {screens} from '../App'
 
 export default function SearchBox() {
-  const isSearchActive = useStore((state: IStore) => state.isSearchActive)
-  const setIsSearchActive = useStore((state: IStore) => state.setIsSearchActive)
-  const searchTerm = useStore((state: IStore) => state.searchTerm)
-  const setSearchTerm = useStore((state: IStore) => state.setSearchTerm)
+  const navigationRef = useStore(state => state.navigationRef)
+  const isSearchActive = useStore(state => state.isSearchActive)
+  const setIsSearchActive = useStore(state => state.setIsSearchActive)
+  const searchTerm = useStore(state => state.searchTerm)
+  const setSearchTerm = useStore(state => state.setSearchTerm)
+
+  function handlesSearchPress() {
+    if (!isSearchActive) {
+      navigationRef.navigate(screens.Search)
+    } else {
+      setIsSearchActive(false)
+      navigationRef.goBack()
+    }
+  }
 
   return (
     <View style={styles.container}>
       {isSearchActive && (
         <TextInput
-          autoFocus
           style={styles.input}
           value={searchTerm}
           onChangeText={text => setSearchTerm(text)}
@@ -25,7 +35,7 @@ export default function SearchBox() {
         size={45}
         color={isSearchActive ? 'gray' : 'white'}
         backgroundColor={isSearchActive ? 'white' : 'transparent'}
-        onPress={() => setIsSearchActive(!isSearchActive)}
+        onPress={handlesSearchPress}
       />
     </View>
   )

@@ -3,7 +3,6 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   useWindowDimensions,
 } from 'react-native'
@@ -11,6 +10,7 @@ import RenderHtml from 'react-native-render-html'
 import {useStore} from '../Store'
 import {resizeMode} from '../Utils'
 import Header from './Header'
+import {htmlStyle, styles} from './styles/EpisodeDetailScreenStyle'
 
 export default function EpisodeDetailScreen() {
   const episode = useStore(state => state.episodeOfInterest)
@@ -42,34 +42,3 @@ export default function EpisodeDetailScreen() {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-  scrollView: {
-    alignItems: 'flex-start',
-  },
-  posterView: {
-    flex: 1,
-    width: '100%',
-    alignItems: 'flex-start',
-  },
-  h1: {
-    backgroundColor: 'rgba(0, 0, 0, 0.36)',
-    color: 'white',
-    fontSize: 45,
-  },
-  h2: {
-    backgroundColor: 'rgba(0, 0, 0, 0.36)',
-    color: 'white',
-    fontSize: 24,
-  },
-})
-const htmlStyle = `
-  padding: 9px; 
-  background-color: rgba(0, 0, 0, 0.36); 
-  color: white; 
-  font-size: 18px
-`

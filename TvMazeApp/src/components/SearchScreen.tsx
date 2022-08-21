@@ -1,11 +1,12 @@
 import React from 'react'
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native'
+import {FlatList, SafeAreaView, Text, View} from 'react-native'
 import {useStore} from '../Store'
 import {useDebounceValue} from '../Utils'
 import {useSearchAPI} from '../services/api/ApiConsumer'
 import Header from './Header'
 import ShowTile from './ShowTile'
 import {useFocusEffect} from '@react-navigation/native'
+import {styles} from './styles/SearchScreenStyle'
 
 export default function SearchScreen() {
   const searchTerm = useStore(state => state.searchTerm)
@@ -40,19 +41,3 @@ export default function SearchScreen() {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'black',
-    padding: 9,
-  },
-  resultsView: {
-    backgroundColor: 'black',
-    width: '100%',
-    height: '100%',
-  },
-  h1: {
-    color: 'white',
-    fontSize: 24,
-  },
-})

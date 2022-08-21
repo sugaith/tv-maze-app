@@ -1,6 +1,7 @@
 import React from 'react'
-import {Image, StyleSheet, View} from 'react-native'
+import {Image, View} from 'react-native'
 import SearchBox from './SearchBox'
+import {styles} from './styles/HeaderStyle'
 
 const tvmLogo = require('../assets/tvm-header-logo.png')
 
@@ -14,13 +15,3 @@ export default function Header() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 90,
-    flexDirection: 'row',
-  },
-  imageContainer: {
-    flex: 1,
-  },
-})

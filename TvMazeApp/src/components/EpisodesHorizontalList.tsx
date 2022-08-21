@@ -2,7 +2,6 @@ import React from 'react'
 import {
   ImageBackground,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -11,6 +10,7 @@ import {IEpisode} from '../services/api/types'
 import {resizeMode} from '../Utils'
 import {screens} from '../App'
 import {useStore} from '../Store'
+import {styles} from './styles/EpisodesHorizontalListStyle'
 
 export default function EpisodesHorizontalList({season}: {season: IEpisode[]}) {
   const navigationRef = useStore(state => state.navigationRef)
@@ -44,24 +44,3 @@ export default function EpisodesHorizontalList({season}: {season: IEpisode[]}) {
     </View>
   )
 }
-
-const height = 120
-const styles = StyleSheet.create({
-  container: {
-    height,
-  },
-  horizontalScroll: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    height,
-  },
-  imageBackground: {
-    height,
-    width: 180,
-    marginHorizontal: 3,
-  },
-  text: {
-    backgroundColor: 'rgba(0, 0, 0, 0.36)',
-    color: 'white',
-    fontSize: 24,
-  },
-})

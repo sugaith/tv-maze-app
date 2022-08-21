@@ -1,8 +1,9 @@
 import React from 'react'
-import {useStore} from '../Store'
-import {StyleSheet, TextInput, View} from 'react-native'
+import {TextInput, View} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import {useStore} from '../Store'
 import {screens} from '../App'
+import {styles} from './styles/SearchBoxStyle'
 
 export default function SearchBox() {
   const navigationRef = useStore(state => state.navigationRef)
@@ -40,21 +41,3 @@ export default function SearchBox() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: 9,
-  },
-  icon: {
-    height: '100%',
-  },
-  input: {
-    flex: 1,
-    backgroundColor: 'white',
-    fontSize: 36,
-  },
-})

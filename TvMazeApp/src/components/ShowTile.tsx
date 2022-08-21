@@ -1,8 +1,9 @@
 import React from 'react'
-import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native'
+import {Image, Text, TouchableOpacity} from 'react-native'
 import {IShow} from '../services/api/types'
 import {useStore} from '../Store'
 import {screens} from '../App'
+import {styles} from './styles/ShowTileStyle'
 
 const loadingIndicator = require('../assets/cupertino_activity_indicator.gif')
 
@@ -29,19 +30,3 @@ export default function ShowTile({showInfo}: {showInfo: IShow}) {
     </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: 210,
-    margin: 3,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  h1: {
-    color: 'white',
-  },
-})

@@ -10,6 +10,7 @@ import {useFocusEffect} from '@react-navigation/native'
 import {useShowsAPI} from '../services/api/ApiConsumer'
 import Header from './Header'
 import ShowTile from './ShowTile'
+import {styles} from './styles/HomeScreenStyle'
 
 export default function HomeScreen() {
   const [canLeave, setCanLeave] = useState(false)
@@ -50,9 +51,3 @@ export default function HomeScreen() {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'black',
-  },
-})

@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    height: '60%',
+    width: '90%',
   },
 })

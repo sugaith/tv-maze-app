@@ -29,7 +29,6 @@ export default function SearchScreen() {
     } else {
       setTimeout(() => setDisplayNoResults(true), 1500)
     }
-    return () => clearTimeout()
   }, [setDisplayNoResults, searchResults])
 
   return (

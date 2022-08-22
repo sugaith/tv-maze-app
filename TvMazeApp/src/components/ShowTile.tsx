@@ -5,8 +5,6 @@ import {useStore} from '../Store'
 import {screens} from '../App'
 import {styles} from './styles/ShowTileStyle'
 
-const loadingIndicator = require('../assets/cupertino_activity_indicator.gif')
-
 export default function ShowTile({showInfo}: {showInfo: IShow}) {
   const navigationRef = useStore(state => state.navigationRef)
   const setShowOfInterest = useStore(state => state.setShowOfInterest)
@@ -23,7 +21,6 @@ export default function ShowTile({showInfo}: {showInfo: IShow}) {
           style={styles.image}
           source={{uri: showInfo?.image?.medium}}
           resizeMethod={'scale'}
-          loadingIndicatorSource={loadingIndicator}
         />
         <Text style={styles.h1}>{showInfo.name}</Text>
       </>

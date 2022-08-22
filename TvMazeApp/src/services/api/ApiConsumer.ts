@@ -19,7 +19,7 @@ export function useShowsAPI(): IUseShowAPIResponse {
     return `/shows?page=${pageIndex}`
   }
 
-  const {data, error, size, setSize} = useSWRInfinite(
+  const {data, error, size, setSize, isValidating} = useSWRInfinite(
     showsPagination,
     swrFetcher,
     {initialSize: 1},
@@ -29,7 +29,7 @@ export function useShowsAPI(): IUseShowAPIResponse {
     showsPages: data || [],
     currentPages: size,
     setPages: setSize,
-    isLoading: !error && !data,
+    isLoading: isValidating,
     isError: error,
   }
 }

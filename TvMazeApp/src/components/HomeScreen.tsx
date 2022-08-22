@@ -1,10 +1,12 @@
 import React, {useCallback, useRef, useState} from 'react'
 import {
+  ActivityIndicator,
   BackHandler,
   FlatList,
   SafeAreaView,
   StyleSheet,
   ToastAndroid,
+  View,
 } from 'react-native'
 import {useFocusEffect} from '@react-navigation/native'
 import {useShowsAPI} from '../services/api/ApiConsumer'
@@ -35,19 +37,23 @@ export default function HomeScreen() {
     }, [exitBlocker]),
   )
 
-  const {showsPages, setPages, currentPages} = useShowsAPI()
+  const {showsPages, setPages, currentPages, isLoading} = useShowsAPI()
   const showsList = showsPages.reduce((acc, curr) => acc.concat(curr), [])
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <FlatList
         data={showsList}
-        renderItem={({item}) => <ShowTile showInfo={item} />}
         keyExtractor={show => show.id}
+        renderItem={({item}) => <ShowTile showInfo={item} />}
         numColumns={3}
         onEndReached={() => setPages(currentPages + 1)}
         onEndReachedThreshold={0.9}
+        progressViewOffset={200}
       />
+      <View style={styles.activityIndicatorView}>
+        {isLoading && <ActivityIndicator {...styles.activityIndicator} />}
+      </View>
     </SafeAreaView>
   )
 }

@@ -21,10 +21,10 @@ An app to explore the ocean of TV Series/Shows.
 
 * Clone this repo
 * cd into React-Native project located at ["TvMazeApp" folder](https://github.com/sugaith/tv-maze-app/tree/main/TvMazeApp)
-- install dependencies, and run the dev environment:
+- install dependencies, and then run the dev environment:
 ```bash
 yarn install
-yarn android
+yarn start
 ```
 
 

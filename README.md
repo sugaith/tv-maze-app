@@ -7,7 +7,7 @@ An app to explore the ocean of TV Series/Shows.
 - **zustand** state manager
 
 ## How to install the app?
-* Download the APK [HERE](https://github.com)
+* Download the APK [HERE](https://github.com/sugaith/tv-maze-app/raw/main/distribution/TvMazeApp.apk)
 
 
 ## How to run this project?
@@ -28,4 +28,4 @@ yarn android
 ```
 
 
-![Print](https://github.com/sugaith/MarvelFront/blob/master/shot.png?raw=true)
+![Print](https://github.com/sugaith/tv-maze-app/blob/main/appScreenShot.png?raw=true)

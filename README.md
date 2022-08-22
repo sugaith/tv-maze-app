@@ -3,8 +3,9 @@
 An app to explore the ocean of TV Series/Shows.
 
 - **React-Native** 0.68.2
-- **SWR** data fetcher
-- **zustand** state manager
+- [**SWR** data fetcher](https://swr.vercel.app/)
+- [**zustand** state manager](https://github.com/pmndrs/zustand)
+- [**tvMaze** API](https://www.tvmaze.com/api)
 
 ## How to install the app?
 * Download the APK [HERE](https://github.com/sugaith/tv-maze-app/raw/main/distribution/TvMazeApp.apk)

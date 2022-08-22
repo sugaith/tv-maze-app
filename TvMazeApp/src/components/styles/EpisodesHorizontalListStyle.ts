@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     height,
   },
   horizontalScroll: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     height,
   },
   imageBackground: {
@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   text: {
-    backgroundColor: 'rgba(0, 0, 0, 0.36)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     color: 'white',
-    fontSize: 24,
+    fontSize: 18,
   },
 })

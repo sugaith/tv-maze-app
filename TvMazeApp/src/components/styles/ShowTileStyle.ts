@@ -12,6 +12,10 @@ export const styles = StyleSheet.create({
     position: 'absolute',
   },
   h1: {
+    padding: 6,
     color: 'white',
+    backgroundColor: 'rgba(0,0,0,0.72)',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 })

@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
   },
   scrollView: {
     alignItems: 'flex-start',
+    backgroundColor: 'rgba(0, 0, 0, 0.63)',
   },
   posterView: {
     flex: 1,
@@ -14,12 +15,12 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   h1: {
-    backgroundColor: 'rgba(0, 0, 0, 0.36)',
+    padding: 9,
     color: 'white',
     fontSize: 45,
   },
   h2: {
-    backgroundColor: 'rgba(0, 0, 0, 0.36)',
+    padding: 9,
     color: 'white',
     fontSize: 24,
   },
@@ -27,7 +28,6 @@ export const styles = StyleSheet.create({
 
 export const htmlStyle = `
   padding: 9px; 
-  background-color: rgba(0, 0, 0, 0.36); 
   color: white; 
   font-size: 18px
 `

@@ -35,7 +35,7 @@ export default function SearchBox() {
         <Icon.Button
           style={styles.icon}
           name={isSearchActive ? 'close' : 'search'}
-          size={45}
+          size={30}
           color={isSearchActive ? 'gray' : 'white'}
           backgroundColor={isSearchActive ? 'white' : 'transparent'}
           onPress={handlesSearchPress}

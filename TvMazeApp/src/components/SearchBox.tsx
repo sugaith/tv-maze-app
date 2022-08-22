@@ -23,21 +23,24 @@ export default function SearchBox() {
 
   return (
     <View style={styles.container}>
-      {isSearchActive && (
-        <TextInput
-          style={styles.input}
-          value={searchTerm}
-          onChangeText={text => setSearchTerm(text)}
+      <View
+        style={[isSearchActive && styles.whiteBackGround, styles.subContainer]}>
+        {isSearchActive && (
+          <TextInput
+            style={styles.input}
+            value={searchTerm}
+            onChangeText={text => setSearchTerm(text)}
+          />
+        )}
+        <Icon.Button
+          style={styles.icon}
+          name={isSearchActive ? 'close' : 'search'}
+          size={45}
+          color={isSearchActive ? 'gray' : 'white'}
+          backgroundColor={isSearchActive ? 'white' : 'transparent'}
+          onPress={handlesSearchPress}
         />
-      )}
-      <Icon.Button
-        style={styles.icon}
-        name={isSearchActive ? 'close' : 'search'}
-        size={45}
-        color={isSearchActive ? 'gray' : 'white'}
-        backgroundColor={isSearchActive ? 'white' : 'transparent'}
-        onPress={handlesSearchPress}
-      />
+      </View>
     </View>
   )
 }

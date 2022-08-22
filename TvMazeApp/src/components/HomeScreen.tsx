@@ -1,10 +1,9 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {
   ActivityIndicator,
   BackHandler,
   FlatList,
   SafeAreaView,
-  StyleSheet,
   ToastAndroid,
   View,
 } from 'react-native'
@@ -30,12 +29,12 @@ export default function HomeScreen() {
   useFocusEffect(
     React.useCallback(() => {
       BackHandler.addEventListener('hardwareBackPress', exitBlocker)
-      return () => {
-        clearTimeout(blockerTimeRef.current)
+      return () =>
         BackHandler.removeEventListener('hardwareBackPress', exitBlocker)
-      }
     }, [exitBlocker]),
   )
+
+  useEffect(() => () => clearTimeout(blockerTimeRef.current), [])
 
   const {showsPages, setPages, currentPages, isLoading} = useShowsAPI()
   const showsList = showsPages.reduce((acc, curr) => acc.concat(curr), [])

@@ -7,5 +7,10 @@ export const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    height: '60%',
   },
 })
